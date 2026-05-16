@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tulbase-mcp"
+version = "0.1.0"
+description = "MCP server for tulbase — open-source context compression for LLM agent conversations"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Compresh Ltd", email = "hello@compre.sh" },
+]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "llm",
+    "agent",
+    "context-compression",
+    "tulbase",
+    "compresh",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "mcp >= 1.0.0",
+    "tulbase >= 0.1.0",
+    "duckdb >= 0.10.0",
+]
+
+[project.optional-dependencies]
+verify = [
+    "tiktoken >= 0.7.0",
+    "transformers >= 4.40.0",
+]
+dev = [
+    "pytest >= 8.0",
+    "pytest-asyncio >= 0.23",
+    "ruff >= 0.4",
+    "mypy >= 1.10",
+]
+
+[project.urls]
+Homepage = "https://compre.sh"
+Repository = "https://github.com/compresh/tulbase-mcp"
+Issues = "https://github.com/compresh/tulbase-mcp/issues"
+Documentation = "https://github.com/compresh/tulbase-mcp#readme"
+
+[project.scripts]
+tulbase-mcp = "tulbase_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+tulbase_mcp = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
