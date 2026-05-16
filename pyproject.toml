@@ -33,7 +33,10 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
     "mcp >= 1.0.0",
-    "tulbase >= 0.1.0",
+    # tulbase is not yet on PyPI — install directly from GitHub.
+    # When tulbase reaches PyPI (tracked in compresh roadmap), switch to:
+    #   "tulbase >= 0.1.0",
+    "tulbase @ git+https://github.com/compresh/tulbase.git@main",
     "duckdb >= 0.10.0",
 ]
 
