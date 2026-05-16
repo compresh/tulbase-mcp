@@ -72,7 +72,7 @@ _PROTECTION_ZONE_N = {"off": 0, "aggressive": 2, "balanced": 4, "conservative": 
 class SessionState:
     """Per-session DuckDB + cold storage + pipeline."""
 
-    __slots__ = ("session_id", "workdir", "log", "cold", "pipeline", "retriever")
+    __slots__ = ("cold", "log", "pipeline", "retriever", "session_id", "workdir")
 
     def __init__(self, session_id: str, root: Path):
         self.session_id = session_id
@@ -313,7 +313,7 @@ async def tool_list_compressed(
     limit = max(1, min(limit, 1000))
 
     sql = (
-        f"SELECT id, turn_idx, modality, summary_short, n_chars "  # noqa: S608
+        f"SELECT id, turn_idx, modality, summary_short, n_chars "
         f"FROM compression_log {where_sql} "
         f"ORDER BY turn_idx ASC LIMIT {limit}"
     )
@@ -532,7 +532,7 @@ async def _call_tool(
             result = {"ok": False, "error": f"unknown tool: {name}"}
     except KeyError as e:
         result = {"ok": False, "error": f"missing required argument: {e}"}
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         logger.exception("tool %s failed", name)
         result = {"ok": False, "error": f"{type(e).__name__}: {e}"}
 
